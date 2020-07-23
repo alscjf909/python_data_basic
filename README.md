@@ -1,7 +1,2 @@
 # python_data_basic
-studyimport csv
-f = open('seoul.csv','rt',encoding='utf8')
-data = csv.reader(f)
-for row in data :
-    print(row)
-f.close()
+나혼자 모두의 데이터 분석 with 파이썬 공부하기
