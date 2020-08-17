@@ -17,10 +17,25 @@
 　  
 ![pic1-4](img/pic1-4.jpg)  
 　  
-그래프의 오른쪽 위에 있는 ![icon](img/icon_01.jpg) 아이콘을 클릭하면 이미지 파일로 저장할 수 있습니다. 또한, 그래프의 오른쪽 아래에 있는 ![icon](img/icon_02.jpg) 버튼을 클릭하면 CSV(Comma Separated Values) 파일로 저장할 수 있습니다.
-![pic1-5](img/pic1-5.jpg)
-![pic1-6](img/pic1-6.jpg)
-![pic1-7](img/pic1-7.jpg)
-![pic1-8](img/pic1-8.jpg)
-![pic1-9](img/pic1-9.jpg)
-![pic1-10](img/pic1-10.jpg)
+그래프의 오른쪽 위에 있는 <img alt="" height ="30" class="h12" src="https://thebook.io/img/007029/icon_01.jpg"> 아이콘을 클릭하면 이미지 파일로 저장할 수 있습니다. 또한, 그래프의 오른쪽 아래에 있는 <img alt="" class="h12" height = "30" src="https://thebook.io/img/007029/icon_02.jpg"> 버튼을 클릭하면 CSV(Comma Separated Values) 파일로 저장할 수 있습니다.  
+　  
+![pic1-5](img/pic1-5.jpg)  
+　   
+![pic1-6](img/pic1-6.jpg)  
+　  
+csv파일은 다음과 같이 엑셀 파일처럼 사용할 수 있다. 또한 '메모장'같은 텍스트 편집기로도 CSV 파일을 열어 수정하고 생성할 수 있다.  
+　  
+![pic1-7](img/pic1-7.jpg)  
+　  
+오른쪽 버튼을 클릭하여 연결 프로그램 -> 메모장을 선택하면 CSV 파일을 메모장에서 열 수 있다.  
+　  
+![pic1-8](img/pic1-8.jpg)  
+　  
+메모장으로 CSV 파일을 열면 데이터가 콤마(,)로 구분되어 있다는 것을 알 수 있다.  
+　  
+![pic1-9](img/pic1-9.jpg)  
+　  
+파일 -> 다른 이름으로 저장을 누르고 파일 형식에서 CSV(쉼표로 분리)를 선택해주세요  
+　  
+![pic1-10](img/pic1-10.jpg)  
+　  
