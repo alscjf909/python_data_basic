@@ -1,0 +1,171 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta property="og:image" content="/resources/images/header_logo.jpg">
+	<meta property="og:url" content="http://car.daegu.go.kr/">
+	<link href="/resources/images/common/favicon02.png" rel="icon" type="image/x-icon" />
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript" src="/resources/jquery/jquery-migrate-1.2.1.min.js"></script>
+	<link type="text/css" rel="stylesheet" href="/resources/css/common.css" />
+	<link href="/resources/video/video-js.css" rel="stylesheet">
+	<title>영상(CCTV)정보|대구 교통종합정보</title>
+	<script src="/resources/video/video.min.js"></script>
+	<script src="/resources/video/videojs-contrib-hls.min.js"></script>
+	<script type="text/javascript">
+		var remainTimeCnt;
+		var video; 
+		$(function(){
+			var cctv = "80";
+			var address = "2711015400";
+			var gu = address.substr(2,3);
+			//모바일 여부 체크
+			var isMobile = (navigator.userAgent.match(/Mobile|iP(hone|od)|BlackBerry|IEMobile|Kindle|NetFront|Silk-Accelerated|(hpw|web)OS|Fennec|Minimo|Opera M(obi|ini)|Blazer|Dolfin|Dolphin|Skyfire|Zune/) != null ? true : false);
+			
+			if(isMobile){
+				var url;
+				if(cctv <= 75){
+					url = "http://210.91.152.35:554/live1/_definst_/ch"+cctv+".stream/playlist.m3u8";
+				}else if(cctv > 75 && cctv <= 150){
+					url = "http://210.91.152.35:554/live2/_definst_/ch"+cctv+".stream/playlist.m3u8";
+				}else if(cctv > 150){
+					url = "http://210.91.152.35:554/live3/_definst_/ch"+cctv+".stream/playlist.m3u8";
+				}
+				location.href = url;
+			}else{
+				$('#gu').val(gu);
+				getCCTVListByGu();
+				
+				video = videojs('my-video');
+				var play = video.play();
+							
+			}
+			
+		});
+		
+	    function countDown(){
+			var tempTime = Number($('#remainTime').text());
+			if(tempTime == 0){
+				clearInterval(remainTimeCnt);
+				video.pause();
+			}else{
+				$('#remainTime').text(tempTime-1);	
+			}
+			
+			
+		}
+	    
+	    function getCCTVListByGu(){
+	    	var gu = $('#gu').val();
+	    	
+	    	$.ajax({
+	    		url : "/map/ajax/getCCTVListByGu",
+	    		data : {gu : gu},
+	    		type : "post",
+	    		dataType : "json",
+	    		anync : false,
+	    		success : function(data){
+	    			if(data != null && typeof(data.result) != "undefined"){
+	    				var result = data.result;
+	    				$('#cctvList').empty();
+	    				if(result.length > 0){
+	    					$(result).each(function(idx,obj){
+	    						$('#cctvList').append("<option value='"+obj.facTypCd+"-"+obj.facSn+"'>"+obj.facNm+"</option>");	
+	    					})
+	    					
+	    				}
+	    				
+	    			}
+	    		},
+	    		complete : function(){
+	    			var cctvNo = "04-20";
+	    			$('#cctvList').val(cctvNo);
+	    		},
+	    		error : function(data){
+	    			
+	    		}
+	    		
+	    	})
+	    }
+	    
+	    function getCctvStreaming(){
+	    	var url = "/map/cctvViewer/"
+	    	var gu = $('#gu').val();
+	    	var cctv = $('#cctvList').val();
+	    	if(gu == null || $.trim(gu).length == 0){
+	    		alert("지역을 선택하세요");
+	    		$('#gu').focus();
+	    		return false;
+	    	}
+	    	if(cctv == null || $.trim(cctv).length == 0){
+	    		alert("CCTV를 선택하세요");
+	    		$('#cctvList').focus();
+	    		return false;
+	    	}
+	    	location.href = url+cctv;
+	    }
+	</script>
+</head>
+<body>
+	<div id="popup">
+		<div class="tit_area">
+			<p class="tit">대구광역시 교통관리시스템 ATMS <span>CCTV</span></p>
+		</div>
+		<div class="select_area">
+			<div class="inner">
+				<select id="gu" onchange="getCCTVListByGu();" title="지역(구)">
+					
+						<option value="110">중구</option>
+					
+						<option value="140">동구</option>
+					
+						<option value="145">안심출장소</option>
+					
+						<option value="170">서구</option>
+					
+						<option value="200">남구</option>
+					
+						<option value="230">북구</option>
+					
+						<option value="235">칠곡출장소</option>
+					
+						<option value="260">수성구</option>
+					
+						<option value="290">달서구</option>
+					
+						<option value="710">달성군</option>
+					
+				</select>
+				<select id="cctvList" title="CCTV 구간명)">
+					<option value="" selected>==선택==</option>
+				</select>
+				<a href="javascript:void(0);" onclick="getCctvStreaming();" class="btn">확인</a>
+			</div>
+		</div>
+
+		<div class="video_area">
+			
+				
+					<video id="my-video" class="video-js" width="379px" height="214px" style="margin : 0 auto;">
+						
+						
+							<source src="http://210.91.152.35:554/live2/_definst_/ch80.stream/playlist.m3u8" type='application/x-mpegURL' >
+						
+						
+					</video>
+				
+				
+			
+		
+		</div>
+		
+		<div class="clearAfter">
+			<p class="bulD1" style="float:right;">재생시간 : <span id="remainTime">30</span>초 남있습니다.</p>
+			<p style="clear:both; text-align:center; color:red;">※CCTV 화면이 보이지 않을 경우 브라우져 호환성보기를 해제하세요.</p>
+		</div>
+	</div>
+</body>
+
+</html>
